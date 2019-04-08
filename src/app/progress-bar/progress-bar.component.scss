@@ -1,0 +1,110 @@
+$track-color: #ad6c6c;
+$progress-color: #813f3f;
+
+$track-color-disabled: #025a02;
+$progress-color-disabled: #063506;
+
+@mixin thumb {
+  width: 1px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  height: 100%;
+  cursor: col-resize;
+  background: $progress-color;
+  box-shadow: -300px 0 0 300px $progress-color;
+  border-width: 0;
+}
+
+@mixin thumb-disabled {
+  background: $progress-color-disabled;
+  box-shadow: -300px 0 0 300px $progress-color-disabled;
+  cursor: default;
+}
+
+@mixin track {
+  width: 100%;
+  height: 100%;
+  cursor: col-resize;
+  background: transparent;
+}
+
+:host {
+  display: flex;
+  margin-bottom: 16px;
+}
+
+label {
+  flex-shrink: 0;
+  width: 50px;
+  margin-left: 10px;
+}
+
+input[type='range'] {
+  width: 240px;
+  overflow: hidden;
+  margin: 0;
+
+  -webkit-appearance: none;
+  background: $track-color;
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  // webkit
+  &::-webkit-slider-runnable-track {
+    @include track();
+  }
+
+  &:focus::-webkit-slider-runnable-track {
+    background: transparent;
+  }
+
+  &::-webkit-slider-thumb {
+    @include thumb;
+  }
+
+  // FF
+  &::-moz-range-thumb {
+    @include thumb;
+  }
+
+  &::-moz-range-track {
+    @include track;
+  }
+
+  // IE
+  &::-ms-track {
+    @include track();
+  }
+
+  &::-ms-thumb {
+    @include thumb();
+  }
+
+  &:disabled {
+    background: $track-color-disabled;
+    cursor: default;
+
+    &::-webkit-slider-runnable-track {
+      cursor: default;
+    }
+
+    &::-webkit-slider-thumb {
+      @include thumb-disabled;
+    }
+
+    &::-moz-range-thumb {
+      @include thumb-disabled;
+    }
+
+    &::-moz-range-track {
+      background: $track-color-disabled;
+      cursor: default;
+    }
+  }
+}

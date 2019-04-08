@@ -1,0 +1,9 @@
+<input
+  type="range"
+  min="rangeMin"
+  max="rangeMax"
+  [value]="progress"
+  (input)="progress = $event.target.value"
+  [disabled]="!updatable"
+/>
+<label>{{ progress }}%</label>
